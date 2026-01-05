@@ -136,6 +136,10 @@ export interface SignupFormData {
   // Step 4: Password
   password: string;
   confirmPassword: string;
+  
+  // Optional fields
+  profileImage?: string | File;
+  wholesalerCode?: string;
 }
 
 export interface DashboardData {

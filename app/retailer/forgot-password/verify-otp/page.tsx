@@ -154,7 +154,11 @@ export default function VerifyOTPPage() {
               {otp.map((digit, index) => (
                 <input
                   key={index}
-                  ref={(el) => (inputRefs.current[index] = el)}
+                  ref={(el: HTMLInputElement | null) => {
+                    if (el !== null) {
+                      inputRefs.current[index] = el;
+                    }
+                  }}
                   type="text"
                   inputMode="numeric"
                   maxLength={1}
