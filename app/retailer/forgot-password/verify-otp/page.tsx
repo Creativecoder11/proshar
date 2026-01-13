@@ -167,7 +167,7 @@ export default function VerifyOTPPage() {
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   onPaste={index === 0 ? handlePaste : undefined}
                   disabled={isLoading}
-                  className="w-12 h-12 text-center text-lg font-semibold border-2 border-gray-300 rounded-lg focus:border-[#0D9488] focus:ring-2 focus:ring-[#0D9488] focus:outline-none disabled:opacity-50"
+                  className="w-12 h-12 text-center text-lg text-black font-semibold border-2 border-gray-300 rounded-lg focus:border-[#0D9488] focus:ring-2 focus:ring-[#0D9488] focus:outline-none disabled:opacity-50"
                 />
               ))}
             </div>

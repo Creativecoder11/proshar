@@ -117,7 +117,7 @@ export default function NewPasswordPage() {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
+                    className="w-full pl-10 pr-10 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
                     placeholder="Enter new password"
                     required
                     disabled={isLoading}
@@ -143,7 +143,7 @@ export default function NewPasswordPage() {
                     id="confirmPassword"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
+                    className="w-full pl-10 pr-10 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
                     placeholder="Confirm new password"
                     required
                     disabled={isLoading}

@@ -300,7 +300,7 @@ function getRetailerById(retailerId: string): Retailer {
   let retailer = mockRetailers.find(r => r.id === retailerId);
   
   if (!retailer) {
-    // Create a demo retailer if not found
+    // Create a demo retailer if not found (no default wholesaler)
     retailer = {
       id: retailerId,
       fullName: 'Demo User',
@@ -309,7 +309,7 @@ function getRetailerById(retailerId: string): Retailer {
       shopName: 'Demo Pharmacy',
       address: '123 Demo Street',
       city: 'Dhaka',
-      wholesalerId: 'wh-001',
+      wholesalerId: '', // No default wholesaler - must be added manually
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -318,6 +318,34 @@ function getRetailerById(retailerId: string): Retailer {
   }
   
   return retailer;
+}
+
+/**
+ * Helper functions to persist retailer-wholesaler relationships in localStorage
+ */
+function getStoredWholesalerIds(retailerId: string): string[] {
+  if (typeof window === 'undefined') return [];
+  
+  try {
+    const stored = localStorage.getItem(`retailer-wholesalers-${retailerId}`);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (e) {
+    console.error('Error reading stored wholesaler IDs:', e);
+  }
+  
+  return [];
+}
+
+function saveWholesalerIds(retailerId: string, wholesalerIds: string[]): void {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.setItem(`retailer-wholesalers-${retailerId}`, JSON.stringify(wholesalerIds));
+  } catch (e) {
+    console.error('Error saving wholesaler IDs:', e);
+  }
 }
 
 /**
@@ -445,6 +473,36 @@ export async function getRetailerProducts(
       page,
       perPage,
     },
+  };
+}
+
+/**
+ * GET /api/retailer/products/{id}
+ * 
+ * Laravel endpoint: GET /api/retailer/products/{id}
+ * Headers: Authorization: Bearer {token}
+ * Response: { success: boolean, message: string, data: Product }
+ */
+export async function getRetailerProduct(
+  token: string,
+  productId: string
+): Promise<ApiResponse<Product>> {
+  await delay(500);
+  
+  const retailerId = token.split('_')[3] || 'ret-001';
+  const retailer = getRetailerById(retailerId);
+  
+  const products = getWholesalerProducts(retailer.wholesalerId);
+  const product = products.find(p => p.id === productId);
+  
+  if (!product) {
+    throw new Error('Product not found');
+  }
+  
+  return {
+    success: true,
+    message: 'Product retrieved successfully',
+    data: product,
   };
 }
 
@@ -635,8 +693,13 @@ export async function addWholesaler(
     throw new Error('Invalid wholesaler code');
   }
   
+  // Get existing wholesaler IDs from localStorage
+  const storedIds = getStoredWholesalerIds(retailerId);
+  const existingWholesalerIds = storedIds.length > 0 
+    ? storedIds 
+    : (retailer.wholesalerIds || (retailer.wholesalerId ? [retailer.wholesalerId] : []));
+  
   // Check if already connected
-  const existingWholesalerIds = retailer.wholesalerIds || (retailer.wholesalerId ? [retailer.wholesalerId] : []);
   if (existingWholesalerIds.includes(wholesaler.id)) {
     throw new Error('Wholesaler already connected');
   }
@@ -653,8 +716,12 @@ export async function addWholesaler(
     createdAt: new Date().toISOString(),
   };
   
-  // Update retailer's wholesaler IDs (in real app, this would be saved to database)
-  retailer.wholesalerIds = [...existingWholesalerIds, wholesaler.id];
+  // Update retailer's wholesaler IDs and save to localStorage
+  const updatedWholesalerIds = [...existingWholesalerIds, wholesaler.id];
+  retailer.wholesalerIds = updatedWholesalerIds;
+  saveWholesalerIds(retailerId, updatedWholesalerIds);
+  
+  // Set primary wholesaler if none exists
   if (!retailer.wholesalerId) {
     retailer.wholesalerId = wholesaler.id;
   }
@@ -682,8 +749,11 @@ export async function getRetailerWholesalers(
   const retailerId = token.split('_')[3] || 'ret-001';
   const retailer = getRetailerById(retailerId);
   
-  // Get all wholesaler IDs for this retailer
-  const wholesalerIds = retailer.wholesalerIds || (retailer.wholesalerId ? [retailer.wholesalerId] : []);
+  // Get all wholesaler IDs from localStorage (persisted data)
+  const storedIds = getStoredWholesalerIds(retailerId);
+  const wholesalerIds = storedIds.length > 0 
+    ? storedIds 
+    : (retailer.wholesalerIds || (retailer.wholesalerId ? [retailer.wholesalerId] : []));
   
   // Create RetailerWholesaler objects
   const wholesalers: RetailerWholesaler[] = wholesalerIds.map((whId, index) => {
@@ -738,15 +808,24 @@ export async function removeWholesaler(
   const retailerId = token.split('_')[3] || 'ret-001';
   const retailer = getRetailerById(retailerId);
   
-  // Remove wholesaler from retailer's list
-  const wholesalerIds = retailer.wholesalerIds || (retailer.wholesalerId ? [retailer.wholesalerId] : []);
-  retailer.wholesalerIds = wholesalerIds.filter(id => id !== wholesalerId);
+  // Get wholesaler IDs from localStorage
+  const storedIds = getStoredWholesalerIds(retailerId);
+  const wholesalerIds = storedIds.length > 0 
+    ? storedIds 
+    : (retailer.wholesalerIds || (retailer.wholesalerId ? [retailer.wholesalerId] : []));
   
-  // If this was the primary wholesaler, set a new one
-  if (retailer.wholesalerId === wholesalerId && retailer.wholesalerIds.length > 0) {
-    retailer.wholesalerId = retailer.wholesalerIds[0];
-  } else if (retailer.wholesalerIds.length === 0) {
-    retailer.wholesalerId = '';
+  // Remove wholesaler from list
+  const updatedIds = wholesalerIds.filter(id => id !== wholesalerId);
+  retailer.wholesalerIds = updatedIds;
+  saveWholesalerIds(retailerId, updatedIds);
+  
+  // If this was the primary wholesaler, set a new one or clear it
+  if (retailer.wholesalerId === wholesalerId) {
+    if (updatedIds.length > 0) {
+      retailer.wholesalerId = updatedIds[0];
+    } else {
+      retailer.wholesalerId = '';
+    }
   }
   
   return {

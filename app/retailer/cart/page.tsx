@@ -249,7 +249,7 @@ export default function CartPage() {
                     <Truck className="w-5 h-5 text-gray-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Shipment: {String(shipmentIndex + 1).padStart(2, '0')}</h3>
+                    <h3 className="font-semibold  text-gray-900 ">Shipment: {String(shipmentIndex + 1).padStart(2, '0')}</h3>
                     {shipment.shipmentDate && (
                       <p className="text-sm text-gray-600">
                         Delivery Date: {new Date(shipment.shipmentDate).toLocaleDateString('en-US', {
@@ -295,7 +295,7 @@ export default function CartPage() {
                           <select
                             value={item.quantity}
                             onChange={(e) => updateQuantity(item.product.id, parseInt(e.target.value))}
-                            className="border border-gray-300 rounded px-3 py-1 text-sm"
+                            className="border text-black border-gray-300 rounded px-3 py-1 text-sm"
                           >
                             {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
                               <option key={num} value={num}>

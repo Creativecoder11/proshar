@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { Product, ProductQuantityOption } from '@/types/retailer';
 import { useCartStore } from '@/lib/stores/cart-store';
 import { ShoppingCart, X, Tag } from 'lucide-react';
@@ -81,27 +82,31 @@ export default function ProductCard({ product }: ProductCardProps) {
           {discountPercent}% OFF
         </div>
 
-        {/* Product Image */}
-        <div className="aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden mt-8">
-          {product.image ? (
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="text-gray-400 text-sm">No Image</div>
-          )}
-        </div>
+        {/* Product Image - Clickable */}
+        <Link href={`/retailer/products/${product.id}`}>
+          <div className="aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center overflow-hidden mt-8 cursor-pointer hover:opacity-90 transition-opacity">
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="text-gray-400 text-sm">No Image</div>
+            )}
+          </div>
+        </Link>
 
         <div className="space-y-2">
-          {/* Product Name and Type */}
-          <div className="flex items-start justify-between gap-2">
-            <h3 className="font-bold text-gray-900 text-lg flex-1">{product.name}</h3>
-            <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded">
-              Tab
-            </span>
-          </div>
+          {/* Product Name and Type - Clickable */}
+          <Link href={`/retailer/products/${product.id}`}>
+            <div className="flex items-start justify-between gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+              <h3 className="font-bold text-gray-900 text-lg flex-1">{product.name}</h3>
+              <span className="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded">
+                Tab
+              </span>
+            </div>
+          </Link>
 
           {/* Manufacturer */}
           {product.manufacturer && (

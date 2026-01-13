@@ -50,6 +50,13 @@ export interface Product {
   sku?: string;
   // Quantity options for product
   quantityOptions?: ProductQuantityOption[];
+  // Additional product details
+  distributor?: string;
+  dosage?: string;
+  sideEffects?: string;
+  storageInstructions?: string;
+  tags?: string[]; // e.g., ["Paracetamol", "Tab"]
+  originalPrice?: number; // For discount calculation
 }
 
 export interface ProductQuantityOption {
@@ -144,7 +151,7 @@ export interface SignupFormData {
 
 export interface DashboardData {
   retailer: Retailer;
-  wholesaler: Wholesaler;
+  wholesaler: Wholesaler | null; // Can be null if no wholesaler is connected
   lastOrder?: Order;
   dueAmount: number;
   totalOrders: number;

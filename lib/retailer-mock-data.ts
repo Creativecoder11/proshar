@@ -120,7 +120,7 @@ export const mockRetailers: Retailer[] = [
     shopName: 'BGD Pharmacy',
     address: '123 Main Street',
     city: 'Dhaka',
-    wholesalerId: 'wh-001',
+    wholesalerId: '', // No default wholesaler - must be added manually
     createdAt: '2024-01-15T10:00:00Z',
     updatedAt: '2024-01-15T10:00:00Z',
   },
@@ -230,7 +230,7 @@ export function getRetailerInvoices(retailerId: string): Invoice[] {
 export function getDashboardData(retailerId: string): DashboardData {
   let retailer = mockRetailers.find(r => r.id === retailerId);
   
-  // If retailer not found, create a demo retailer
+  // If retailer not found, create a demo retailer (no default wholesaler)
   if (!retailer) {
     retailer = {
       id: retailerId,
@@ -240,25 +240,16 @@ export function getDashboardData(retailerId: string): DashboardData {
       shopName: 'Demo Pharmacy',
       address: '123 Demo Street',
       city: 'Dhaka',
-      wholesalerId: 'wh-001',
+      wholesalerId: '', // No default wholesaler
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
   }
   
-  // Get or create wholesaler
+  // Get wholesaler only if retailer has one connected (no default)
   let wholesaler = getRetailerWholesaler(retailerId);
-  if (!wholesaler) {
-    // Use default wholesaler
-    wholesaler = mockWholesalers[0] || {
-      id: 'wh-001',
-      name: 'Bismillah Pharma',
-      code: 'BISMILLAH2024',
-      address: 'Dhaka, Bangladesh',
-      phone: '+8801712345678',
-      email: 'info@bismillahpharma.com',
-    };
-  }
+  
+  // Return null if no wholesaler is connected (no auto-assignment)
   
   const orders = getRetailerOrders(retailerId);
   const invoices = getRetailerInvoices(retailerId);

@@ -9,6 +9,12 @@ import {
   Bell,
   ChevronDown,
   MoreVertical,
+  X,
+  Package,
+  Trash2,
+  Plus,
+  Minus,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,7 +24,7 @@ import SearchResults from "./SearchResults";
 
 export default function NavbarHeader() {
   const router = useRouter();
-  const { items } = useCartStore();
+  const { items, getTotal, removeItem, updateQuantity } = useCartStore();
   const { retailer } = useAuthStore();
 
   const [search, setSearch] = useState("");
@@ -37,7 +43,47 @@ export default function NavbarHeader() {
   const searchRef = useRef<HTMLDivElement>(null);
 
   const cartCount = items.reduce((a, b) => a + b.quantity, 0);
+  const cartTotal = getTotal();
   const notificationCount = 5; // TODO: replace with real API data
+
+  // Mock notifications data
+  const notifications = [
+    {
+      id: '1',
+      title: 'New Order Confirmed',
+      message: 'Your order #ORD-001 has been confirmed',
+      time: '2 minutes ago',
+      read: false,
+    },
+    {
+      id: '2',
+      title: 'Product Restocked',
+      message: 'Napa Extend 500mg is now back in stock',
+      time: '1 hour ago',
+      read: false,
+    },
+    {
+      id: '3',
+      title: 'Special Offer',
+      message: 'Get 20% off on all pain relief products',
+      time: '3 hours ago',
+      read: true,
+    },
+    {
+      id: '4',
+      title: 'Delivery Update',
+      message: 'Your order will be delivered tomorrow',
+      time: '5 hours ago',
+      read: true,
+    },
+    {
+      id: '5',
+      title: 'Payment Reminder',
+      message: 'Please complete payment for invoice #INV-002',
+      time: '1 day ago',
+      read: false,
+    },
+  ];
 
   const categories = [
     "Medicine",
@@ -183,7 +229,7 @@ export default function NavbarHeader() {
                                     : [...prev, sub]
                                 );
                               }}
-                              className="accent-[#2F7F7A]"
+                              className="accent-[#2F7F7A] text-black"
                             />
                             {sub}
                           </label>
@@ -258,7 +304,7 @@ export default function NavbarHeader() {
             <div className="relative" ref={cartRef}>
               <button
                 onClick={() => setShowCart(!showCart)}
-                className="relative w-10 h-10 rounded-full border flex items-center justify-center"
+                className="relative w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <ShoppingCart className="w-5 h-5 text-black" />
 
@@ -268,13 +314,129 @@ export default function NavbarHeader() {
                   </span>
                 )}
               </button>
+
+              {/* Cart Dropdown */}
+              {showCart && (
+                <div className="absolute right-0 mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-xl z-50 animate-slide-down">
+                  <div className="p-4 border-b border-gray-200">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-gray-900">Shopping Cart</h3>
+                      <button
+                        onClick={() => setShowCart(false)}
+                        className="text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="max-h-96 overflow-y-auto">
+                    {items.length === 0 ? (
+                      <div className="p-8 text-center">
+                        <ShoppingCart className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-600 text-sm">Your cart is empty</p>
+                      </div>
+                    ) : (
+                      <div className="p-4 space-y-3">
+                        {items.map((item) => (
+                          <div
+                            key={item.product.id}
+                            className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                          >
+                            <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                              {item.product.image ? (
+                                <img
+                                  src={item.product.image}
+                                  alt={item.product.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <Package className="w-8 h-8 text-gray-400" />
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-sm font-medium text-gray-900 line-clamp-1">
+                                {item.product.name}
+                              </h4>
+                              {item.product.manufacturer && (
+                                <p className="text-xs text-gray-500 mt-0.5">
+                                  {item.product.manufacturer}
+                                </p>
+                              )}
+                              <div className="flex items-center justify-between mt-2">
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    onClick={() => {
+                                      if (item.quantity > 1) {
+                                        updateQuantity(item.product.id, item.quantity - 1, item.selectedQuantityOption);
+                                      } else {
+                                        removeItem(item.product.id);
+                                      }
+                                    }}
+                                    className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center hover:bg-gray-200 transition-colors"
+                                  >
+                                    <Minus className="w-3 h-3 text-gray-600" />
+                                  </button>
+                                  <span className="text-sm font-medium text-gray-900 w-8 text-center">
+                                    {item.quantity}
+                                  </span>
+                                  <button
+                                    onClick={() => {
+                                      updateQuantity(item.product.id, item.quantity + 1, item.selectedQuantityOption);
+                                    }}
+                                    className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center hover:bg-gray-200 transition-colors"
+                                  >
+                                    <Plus className="w-3 h-3 text-gray-600" />
+                                  </button>
+                                </div>
+                                <div className="text-right">
+                                  <p className="text-sm font-semibold text-gray-900">
+                                    ৳{(item.product.price * item.quantity).toFixed(2)}
+                                  </p>
+                                  <button
+                                    onClick={() => removeItem(item.product.id)}
+                                    className="text-red-500 hover:text-red-700 mt-1"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {items.length > 0 && (
+                    <>
+                      <div className="p-4 border-t border-gray-200">
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-base font-semibold text-gray-900">Total:</span>
+                          <span className="text-lg font-bold text-[#2F7F7A]">
+                            ৳{cartTotal.toFixed(2)}
+                          </span>
+                        </div>
+                        <Link
+                          href="/retailer/cart"
+                          onClick={() => setShowCart(false)}
+                          className="w-full bg-[#2F7F7A] text-white py-2.5 px-4 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium flex items-center justify-center gap-2"
+                        >
+                          View Cart
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* NOTIFICATION */}
             <div className="relative" ref={notifRef}>
               <button
                 onClick={() => setShowNotification(!showNotification)}
-                className="relative w-10 h-10 rounded-full border flex items-center justify-center"
+                className="relative w-10 h-10 rounded-full border flex items-center justify-center hover:bg-gray-50 transition-colors"
               >
                 <Bell className="w-5 h-5 text-black" />
 
@@ -284,6 +446,68 @@ export default function NavbarHeader() {
                   </span>
                 )}
               </button>
+
+              {/* Notification Dropdown */}
+              {showNotification && (
+                <div className="absolute right-0 mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-xl z-50 animate-slide-down">
+                  <div className="p-4 border-b border-gray-200">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-gray-900">Notifications</h3>
+                      <button
+                        onClick={() => setShowNotification(false)}
+                        className="text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="max-h-96 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <div className="p-8 text-center">
+                        <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                        <p className="text-gray-600 text-sm">No notifications</p>
+                      </div>
+                    ) : (
+                      <div className="p-2">
+                        {notifications.map((notification) => (
+                          <div
+                            key={notification.id}
+                            className={`p-3 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors ${
+                              !notification.read ? 'bg-blue-50' : ''
+                            }`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div
+                                className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                                  !notification.read ? 'bg-[#2F7F7A]' : 'bg-transparent'
+                                }`}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-sm font-semibold text-gray-900 mb-1">
+                                  {notification.title}
+                                </h4>
+                                <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                                  {notification.message}
+                                </p>
+                                <p className="text-xs text-gray-400">{notification.time}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {notifications.length > 0 && (
+                    <div className="p-3 border-t border-gray-200">
+                      <button className="w-full text-sm text-[#2F7F7A] hover:text-[#1e5d58] font-medium text-center">
+                        View All Notifications
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* PROFILE */}

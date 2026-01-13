@@ -3,8 +3,13 @@
 import { useEffect, useState } from 'react';
 import Layout from '@/components/retailer/Layout';
 import { useAuthStore } from '@/lib/stores/auth-store';
-import { getRetailerDashboard } from '@/lib/retailer-api';
-import { DashboardData } from '@/types/retailer';
+import { 
+  getRetailerDashboard, 
+  getRetailerWholesalers, 
+  addWholesaler, 
+  validateWholesalerCode 
+} from '@/lib/retailer-api';
+import { DashboardData, RetailerWholesaler } from '@/types/retailer';
 import {
   DollarSign,
   FileText,
@@ -17,6 +22,9 @@ import {
   MinusCircle,
   BarChart3,
   ShoppingBag,
+  CheckCircle2,
+  X,
+  Plus,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Loader2 } from 'lucide-react';
@@ -27,10 +35,20 @@ export default function DashboardPage() {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [wholesalers, setWholesalers] = useState<RetailerWholesaler[]>([]);
+  const [isLoadingWholesalers, setIsLoadingWholesalers] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [wholesalerCode, setWholesalerCode] = useState('');
+  const [isValidating, setIsValidating] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [addError, setAddError] = useState('');
+  const [addSuccess, setAddSuccess] = useState(false);
+  const [validatedWholesaler, setValidatedWholesaler] = useState<{ id: string; name: string } | null>(null);
 
   useEffect(() => {
     if (token) {
       loadDashboard();
+      loadWholesalers();
     }
   }, [token]);
 
@@ -48,6 +66,84 @@ export default function DashboardPage() {
       setError(err instanceof Error ? err.message : 'Failed to load dashboard');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const loadWholesalers = async () => {
+    if (!token) return;
+
+    setIsLoadingWholesalers(true);
+    try {
+      const response = await getRetailerWholesalers(token);
+      if (response.success) {
+        setWholesalers(response.data.wholesalers);
+      }
+    } catch (err) {
+      console.error('Failed to load wholesalers:', err);
+    } finally {
+      setIsLoadingWholesalers(false);
+    }
+  };
+
+  const handleValidateCode = async () => {
+    if (!wholesalerCode.trim()) {
+      setAddError('Please enter a wholesaler code');
+      return;
+    }
+
+    setIsValidating(true);
+    setAddError('');
+    setValidatedWholesaler(null);
+
+    try {
+      const response = await validateWholesalerCode(wholesalerCode.trim());
+      if (response.success && response.data.valid && response.data.wholesaler) {
+        setValidatedWholesaler(response.data.wholesaler);
+        setAddError('');
+      } else {
+        setAddError('Invalid wholesaler code. Please check and try again.');
+        setValidatedWholesaler(null);
+      }
+    } catch (err) {
+      setAddError(err instanceof Error ? err.message : 'Failed to validate code');
+      setValidatedWholesaler(null);
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
+  const handleAddWholesaler = async () => {
+    if (!wholesalerCode.trim()) {
+      setAddError('Please enter a wholesaler code');
+      return;
+    }
+
+    if (!token) {
+      setAddError('Please login to add wholesalers');
+      return;
+    }
+
+    setIsAdding(true);
+    setAddError('');
+    setAddSuccess(false);
+
+    try {
+      const response = await addWholesaler(token, wholesalerCode.trim());
+      if (response.success) {
+        setWholesalerCode('');
+        setValidatedWholesaler(null);
+        setAddSuccess(true);
+        setShowAddForm(false);
+        // Reload wholesalers and dashboard
+        await loadWholesalers();
+        await loadDashboard();
+        // Reset success message after 3 seconds
+        setTimeout(() => setAddSuccess(false), 3000);
+      }
+    } catch (err) {
+      setAddError(err instanceof Error ? err.message : 'Failed to add wholesaler');
+    } finally {
+      setIsAdding(false);
     }
   };
 
@@ -84,7 +180,8 @@ export default function DashboardPage() {
   const { wholesaler, dueAmount, totalOrders, totalSpent } = dashboardData;
   const totalRevenue = totalSpent; // Mock: using totalSpent as revenue
   const totalExpense = 0; // Mock: will be calculated from ledger later
-  const totalWholesalers = 1; // Mock: currently connected to one wholesaler
+  // Only count wholesalers that actually exist
+  const totalWholesalers = wholesalers.length;
 
   // Get first name from full name
   const firstName = retailer?.fullName?.split(' ')[0] || 'User';
@@ -208,15 +305,174 @@ export default function DashboardPage() {
                 <p className="text-sm text-gray-600">Connect with wholesalers to access products</p>
               </div>
             </div>
-            <Link
-              href="/retailer/wholesaler"
-              className="inline-flex items-center gap-2 bg-[#2F7F7A] text-white px-4 py-2 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium"
-            >
-              <Users className="w-5 h-5" />
-              Add Wholesaler
-            </Link>
+            <div className="flex items-center gap-2">
+              {!showAddForm && (
+                <button
+                  onClick={() => {
+                    setShowAddForm(true);
+                    setWholesalerCode('');
+                    setAddError('');
+                    setValidatedWholesaler(null);
+                  }}
+                  className="inline-flex items-center gap-2 bg-[#2F7F7A] text-white px-4 py-2 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium"
+                >
+                  <Plus className="w-5 h-5" />
+                  Add Wholesaler
+                </button>
+              )}
+              <Link
+                href="/retailer/wholesaler"
+                className="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+              >
+                Manage All
+              </Link>
+            </div>
           </div>
-          {wholesaler ? (
+
+          {/* Success Message */}
+          {addSuccess && (
+            <div className="mb-4 bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <p className="text-sm text-green-800 font-medium">
+                  Wholesaler added successfully!
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Add Wholesaler Form */}
+          {showAddForm && (
+            <div className="mb-4 bg-[#ECF9F9] rounded-lg p-4 border border-[#2F7F7A]">
+              <div className="flex items-center justify-between mb-3">
+                <h4 className="text-sm font-semibold text-gray-900">Add New Wholesaler</h4>
+                <button
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setWholesalerCode('');
+                    setAddError('');
+                    setValidatedWholesaler(null);
+                  }}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Wholesaler Code
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={wholesalerCode}
+                      onChange={(e) => {
+                        setWholesalerCode(e.target.value);
+                        setAddError('');
+                        setValidatedWholesaler(null);
+                      }}
+                      placeholder="Enter wholesaler code"
+                      className="flex-1 px-3 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent"
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter' && !isValidating && !isAdding) {
+                          handleValidateCode();
+                        }
+                      }}
+                    />
+                    <button
+                      onClick={handleValidateCode}
+                      disabled={isValidating || !wholesalerCode.trim()}
+                      className="px-4 py-2 bg-[#2F7F7A] text-white rounded-lg hover:bg-[#1e5d58] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isValidating ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        'Validate'
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {validatedWholesaler && (
+                  <div className="bg-white rounded-lg p-3 border border-green-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <CheckCircle2 className="w-5 h-5 text-green-600" />
+                      <p className="text-sm font-medium text-gray-900">
+                        Valid Code: {validatedWholesaler.name}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleAddWholesaler}
+                      disabled={isAdding}
+                      className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {isAdding ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Adding...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-4 h-4" />
+                          Add Wholesaler
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
+
+                {addError && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-sm text-red-800">{addError}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Connected Wholesalers List */}
+          {isLoadingWholesalers ? (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="w-6 h-6 animate-spin text-[#2F7F7A]" />
+            </div>
+          ) : wholesalers.length > 0 ? (
+            <div className="space-y-3">
+              {wholesalers.map((rw) => (
+                <div
+                  key={rw.id}
+                  className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#2F7F7A] transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-[#ECF9F9] rounded-full flex items-center justify-center">
+                        <Users className="w-5 h-5 text-[#2F7F7A]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-gray-900">
+                          {rw.wholesaler.name}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          {rw.totalOrders} orders • ৳{rw.totalSpent.toFixed(2)} spent
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                        {rw.status === 'active' ? 'Active' : 'Inactive'}
+                      </span>
+                      <Link
+                        href={`/retailer/products?wholesaler=${rw.wholesalerId}`}
+                        className="text-[#2F7F7A] hover:text-[#1e5d58] text-sm font-medium"
+                      >
+                        View Products
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : wholesaler ? (
             <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
               <p className="text-sm text-gray-600">
                 Connected to <span className="font-semibold text-gray-900">{wholesaler.name}</span>

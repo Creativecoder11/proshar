@@ -269,7 +269,7 @@ export default function WholesalerPage() {
                     }
                   }}
                   placeholder="Enter Wholesaler Code"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent text-black"
+                  className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent text-black"
                 />
               </div>
               <button
@@ -336,7 +336,7 @@ export default function WholesalerPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search wholesalers..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent text-black"
+                  className="w-full pl-10 pr-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent text-black"
                 />
               </div>
               <div className="relative">

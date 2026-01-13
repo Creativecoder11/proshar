@@ -149,7 +149,7 @@ export default function LoginPage() {
                     type="checkbox"
                     checked={keepSignedIn}
                     onChange={(e) => setKeepSignedIn(e.target.checked)}
-                    className="w-4 h-4 text-[#0D9488] border-gray-300 rounded focus:ring-[#0D9488]"
+                    className="w-4 h-4 text-[#0D9488] text-black border-gray-300 rounded focus:ring-[#0D9488]"
                   />
                   <span className="text-sm text-gray-700">Keep me signed in</span>
                 </label>
