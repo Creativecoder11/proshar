@@ -1,4 +1,4 @@
-# COCODILE - Retailer Portal
+# Proshar - Retailer Portal
 
 A comprehensive B2B Wholesale-Retailer platform frontend built with Next.js, TypeScript, and Tailwind CSS.
 
