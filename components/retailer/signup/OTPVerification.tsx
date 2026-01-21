@@ -107,7 +107,7 @@ export default function OTPVerification({ phone, onVerify, onBack, onResend }: O
             onChange={(e) => handleChange(index, e.target.value)}
             onKeyDown={(e) => handleKeyDown(index, e)}
             onPaste={index === 0 ? handlePaste : undefined}
-            className="w-12 h-12 text-center text-lg font-semibold text-black border-2 border-gray-300 rounded-lg focus:border-[#0D9488] focus:ring-2 focus:ring-[#0D9488] focus:outline-none"
+            className="w-12 h-12 text-center text-lg font-semibold text-black border-2 border-gray-300 rounded-lg focus:border-[#3A21C0] focus:ring-2 focus:ring-[#3A21C0] focus:outline-none"
           />
         ))}
       </div>
@@ -126,7 +126,7 @@ export default function OTPVerification({ phone, onVerify, onBack, onResend }: O
           type="button"
           onClick={onResend}
           disabled={timeLeft > 0}
-          className="text-sm text-[#0D9488] hover:text-[#0b7d72] font-medium disabled:text-gray-400 disabled:cursor-not-allowed"
+          className="text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium disabled:text-gray-400 disabled:cursor-not-allowed"
         >
           Didn't receive the code?
         </button>
@@ -137,7 +137,7 @@ export default function OTPVerification({ phone, onVerify, onBack, onResend }: O
         type="button"
         onClick={() => onVerify(otp.join(''))}
         disabled={otp.some((digit) => !digit)}
-        className="w-full bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Continue
       </button>

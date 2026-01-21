@@ -54,7 +54,7 @@ export default function SignupStepFour({ onNext, onBack }: SignupStepFourProps) 
             id="password"
             value={formData.password || ''}
             onChange={(e) => setFormData({ password: e.target.value })}
-            className={`w-full pl-10 pr-10 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-10 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.password ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter password"
@@ -83,7 +83,7 @@ export default function SignupStepFour({ onNext, onBack }: SignupStepFourProps) 
             id="confirmPassword"
             value={formData.confirmPassword || ''}
             onChange={(e) => setFormData({ confirmPassword: e.target.value })}
-            className={`w-full pl-10 pr-10 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-10 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Confirm password"
@@ -111,7 +111,7 @@ export default function SignupStepFour({ onNext, onBack }: SignupStepFourProps) 
         </button>
         <button
           type="submit"
-          className="flex-1 bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium"
+          className="flex-1 bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium"
         >
           Submit
         </button>

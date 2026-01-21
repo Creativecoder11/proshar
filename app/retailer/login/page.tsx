@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useAuthStore } from '@/lib/stores/auth-store';
 import { retailerLogin } from '@/lib/retailer-api';
 import { Loader2, Phone, Lock, CheckCircle2, Shield, Tag } from 'lucide-react';
+import Image from 'next/image';
+import prosharlogo from '@/assets/proshar-white.svg';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -38,18 +40,13 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#0D9488] flex-col items-center justify-center px-12 text-White">
+      <div className="hidden lg:flex lg:w-1/2 bg-[#3A21C0] flex-col items-center justify-center px-12 text-White">
         <div className="max-w-md">
           {/* Logo */}
           <div className="flex items-center justify-center mb-8">
-            <div className="flex gap-2">
-              <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white"></div>
-              <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white"></div>
-              <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white"></div>
-            </div>
+            <Image src={prosharlogo} alt="Medigo Logo" width={200} height={50} />
           </div>
-          <h1 className="text-4xl font-bold text-center mb-2">MediGo</h1>
-          <p className="text-center text-white/90 mb-12">Bangladesh's First Medicine Marketplace</p>
+          <p className="text-center text-white/90 mb-12">Bangladesh's First Wholesaler Marketplace</p>
 
           {/* Features */}
           <div className="space-y-4">
@@ -116,7 +113,7 @@ export default function LoginPage() {
                     id="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent"
                     placeholder="Enter phone number"
                     required
                     disabled={isLoading}
@@ -135,7 +132,7 @@ export default function LoginPage() {
                     id="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent"
                     placeholder="Enter password"
                     required
                     disabled={isLoading}
@@ -149,13 +146,13 @@ export default function LoginPage() {
                     type="checkbox"
                     checked={keepSignedIn}
                     onChange={(e) => setKeepSignedIn(e.target.checked)}
-                    className="w-4 h-4 text-[#0D9488] text-black border-gray-300 rounded focus:ring-[#0D9488]"
+                    className="w-4 h-4 text-[#3A21C0] text-black border-gray-300 rounded focus:ring-[#3A21C0]"
                   />
                   <span className="text-sm text-gray-700">Keep me signed in</span>
                 </label>
                 <Link
                   href="/retailer/forgot-password"
-                  className="text-sm text-[#0D9488] hover:text-[#0b7d72] font-medium"
+                  className="text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium"
                 >
                   Forgot Password?
                 </Link>
@@ -164,7 +161,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -181,7 +178,7 @@ export default function LoginPage() {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
-                <Link href="/retailer/signup" className="text-[#0D9488] hover:text-[#0b7d72] font-medium">
+                <Link href="/retailer/signup" className="text-[#3A21C0] hover:text-[#7B6AD5] font-medium">
                   Create new →
                 </Link>
               </p>

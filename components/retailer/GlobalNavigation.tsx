@@ -39,20 +39,13 @@ export default function GlobalNavigation({ children }: GlobalNavigationProps) {
     { href: "/retailer/orders", label: "Orders", icon: ShoppingCart },
     { href: "/retailer/short-khata", label: "Short Khata", icon: BookOpen },
     { href: "/retailer/wholesaler", label: "Wholesaler", icon: Users },
-    { href: "/retailer/favorites", label: "Favorites", icon: Heart },
-    {
-      href: "/retailer/trending",
-      label: "Trending Products",
-      icon: TrendingUp,
-    },
-    { href: "/retailer/offers", label: "Special Offers", icon: Tag },
-    { href: "/retailer/analytics", label: "Analytics", icon: BarChart3 },
+    { href: "/retailer/ledger", label: "My Ledger", icon: FileText },
     { href: "/retailer/settings", label: "Settings", icon: Settings },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-       {/* Global Top Navbar */}
+      {/* Global Top Navbar */}
       <NavbarHeader />
       <div className="flex">
         {/* Left Sidebar */}
@@ -60,7 +53,7 @@ export default function GlobalNavigation({ children }: GlobalNavigationProps) {
           <div className="border-b border-gray-200 w-full mx-auto px-8"></div>
           {/* Navigation */}
           <nav className="flex-1 space-y-1 overflow-y-auto">
-          <div className=" text-black py-6 ">MAIN MENU</div>
+            <div className=" text-black py-6 ">MAIN MENU</div>
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
@@ -68,11 +61,10 @@ export default function GlobalNavigation({ children }: GlobalNavigationProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                    isActive
-                      ? "bg-[#ECF9F9] text-black border-l-4 rounded-none border-[#2F7F7A] font-medium"
-                      : "text-black hover:bg-[#ECF9F9] hover:text-black"
-                  }`}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
+                      ? "bg-[#F5F3FF] text-black border-l-4 rounded-none border-[#3A21C0] font-medium"
+                      : "text-black hover:bg-[#F5F3FF] hover:text-black"
+                    }`}
                 >
                   <Icon className="w-5 h-5" />
                   <span>{item.label}</span>

@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#0D9488] flex-col items-center justify-center px-12 text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-[#3A21C0] flex-col items-center justify-center px-12 text-white">
         <div className="max-w-md">
           {/* Logo */}
           <div className="flex items-center justify-center mb-8">
@@ -91,7 +91,7 @@ export default function ForgotPasswordPage() {
                     id="phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent"
                     placeholder="Enter phone number"
                     required
                     disabled={isLoading}
@@ -102,7 +102,7 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -119,7 +119,7 @@ export default function ForgotPasswordPage() {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
                 Remember your password?{' '}
-                <Link href="/retailer/login" className="text-[#0D9488] hover:text-[#0b7d72] font-medium">
+                <Link href="/retailer/login" className="text-[#3A21C0] hover:text-[#7B6AD5] font-medium">
                   Sign In →
                 </Link>
               </p>

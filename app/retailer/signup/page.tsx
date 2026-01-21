@@ -9,10 +9,12 @@ import SignupStepOne from '@/components/retailer/signup/SignupStepOne';
 import OTPVerification from '@/components/retailer/signup/OTPVerification';
 import SignupStepThree from '@/components/retailer/signup/SignupStepThree';
 import SignupStepFour from '@/components/retailer/signup/SignupStepFour';
+import prosharlogo from '@/assets/proshar-white.svg';
 
 
 import Link from 'next/link';
 import { CheckCircle2, Loader2 } from 'lucide-react';
+import Image from 'next/image';
 
 const TOTAL_STEPS = 4;
 
@@ -158,18 +160,16 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#0D9488] flex-col items-center justify-center px-12 text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-[#3A21C0] flex-col items-center justify-center px-12 text-white">
         <div className="max-w-md">
           {/* Logo */}
           <div className="flex items-center justify-center mb-8">
             <div className="flex gap-2">
-              <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white"></div>
-              <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white"></div>
-              <div className="w-12 h-12 rounded-full bg-white/20 border-2 border-white"></div>
+              <Image src={prosharlogo} alt="Proshar Logo" width={200} height={50} />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-center mb-2">MediGo</h1>
-          <p className="text-center text-white/90 mb-12">Bangladesh's First Medicine Marketplace</p>
+
+          <p className="text-center text-white/90 mb-12">Bangladesh's First Wholesaler Marketplace</p>
 
           {/* Features */}
           <div className="space-y-4">
@@ -220,7 +220,7 @@ export default function SignupPage() {
               {/* Progress Bar */}
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div
-                  className="bg-[#0D9488] h-2 rounded-full transition-all duration-300"
+                  className="bg-[#3A21C0] h-2 rounded-full transition-all duration-300"
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
@@ -240,7 +240,7 @@ export default function SignupPage() {
             <div className="text-center pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-600">
                 Already have an account?{' '}
-                <Link href="/retailer/login" className="text-[#0D9488] hover:text-[#0b7d72] font-medium">
+                <Link href="/retailer/login" className="text-[#3A21C0] hover:text-[#7B6AD5] font-medium">
                   Sign In →
                 </Link>
               </p>

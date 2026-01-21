@@ -151,7 +151,7 @@ export default function DashboardPage() {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#0D9488]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#3A21C0]" />
         </div>
       </Layout>
     );
@@ -171,7 +171,7 @@ export default function DashboardPage() {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#0D9488]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#3A21C0]" />
         </div>
       </Layout>
     );
@@ -298,7 +298,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-[#ECF9F9] rounded-full flex items-center justify-center">
-                <Users className="w-5 h-5 text-[#2F7F7A]" />
+                <Users className="w-5 h-5 text-[#3A21C0]" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Wholesaler</h3>
@@ -314,7 +314,7 @@ export default function DashboardPage() {
                     setAddError('');
                     setValidatedWholesaler(null);
                   }}
-                  className="inline-flex items-center gap-2 bg-[#2F7F7A] text-white px-4 py-2 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium"
+                  className="inline-flex items-center gap-2 bg-[#3A21C0] text-white px-4 py-2 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium"
                 >
                   <Plus className="w-5 h-5" />
                   Add Wholesaler
@@ -343,7 +343,7 @@ export default function DashboardPage() {
 
           {/* Add Wholesaler Form */}
           {showAddForm && (
-            <div className="mb-4 bg-[#ECF9F9] rounded-lg p-4 border border-[#2F7F7A]">
+            <div className="mb-4 bg-[#ECF9F9] rounded-lg p-4 border border-[#3A21C0]">
               <div className="flex items-center justify-between mb-3">
                 <h4 className="text-sm font-semibold text-gray-900">Add New Wholesaler</h4>
                 <button
@@ -373,7 +373,7 @@ export default function DashboardPage() {
                         setValidatedWholesaler(null);
                       }}
                       placeholder="Enter wholesaler code"
-                      className="flex-1 px-3 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent"
+                      className="flex-1 px-3 py-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent"
                       onKeyPress={(e) => {
                         if (e.key === 'Enter' && !isValidating && !isAdding) {
                           handleValidateCode();
@@ -383,7 +383,7 @@ export default function DashboardPage() {
                     <button
                       onClick={handleValidateCode}
                       disabled={isValidating || !wholesalerCode.trim()}
-                      className="px-4 py-2 bg-[#2F7F7A] text-white rounded-lg hover:bg-[#1e5d58] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 bg-[#3A21C0] text-white rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isValidating ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -434,19 +434,19 @@ export default function DashboardPage() {
           {/* Connected Wholesalers List */}
           {isLoadingWholesalers ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="w-6 h-6 animate-spin text-[#2F7F7A]" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#3A21C0]" />
             </div>
           ) : wholesalers.length > 0 ? (
             <div className="space-y-3">
               {wholesalers.map((rw) => (
                 <div
                   key={rw.id}
-                  className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#2F7F7A] transition-colors"
+                  className="bg-gray-50 rounded-lg p-4 border border-gray-200 hover:border-[#3A21C0] transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-[#ECF9F9] rounded-full flex items-center justify-center">
-                        <Users className="w-5 h-5 text-[#2F7F7A]" />
+                        <Users className="w-5 h-5 text-[#3A21C0]" />
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-gray-900">
@@ -463,7 +463,7 @@ export default function DashboardPage() {
                       </span>
                       <Link
                         href={`/retailer/products?wholesaler=${rw.wholesalerId}`}
-                        className="text-[#2F7F7A] hover:text-[#1e5d58] text-sm font-medium"
+                        className="text-[#3A21C0] hover:text-[#7B6AD5] text-sm font-medium"
                       >
                         View Products
                       </Link>
@@ -494,7 +494,7 @@ export default function DashboardPage() {
             {mockOffers.map((offer) => (
               <div
                 key={offer.id}
-                className="bg-gradient-to-br from-[#0D9488] to-[#0b7d72] rounded-lg p-6 text-white"
+                className="bg-gradient-to-br from-[#3A21C0] to-[#7B6AD5] rounded-lg p-6 text-white"
               >
                 <div className="mb-2">
                   <span className="text-xs font-semibold uppercase tracking-wider opacity-90">
@@ -503,7 +503,7 @@ export default function DashboardPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-2">{offer.title}</h3>
                 <p className="text-sm opacity-90 mb-4">{offer.description}</p>
-                <button className="flex items-center gap-2 bg-white text-[#0D9488] px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-medium text-sm">
+                <button className="flex items-center gap-2 bg-white text-[#3A21C0] px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-medium text-sm">
                   Shop Now
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -518,7 +518,7 @@ export default function DashboardPage() {
             <h2 className="text-lg font-semibold text-gray-900">Manufacturers</h2>
             <Link
               href="/retailer/manufacturers"
-              className="text-sm text-[#0D9488] hover:text-[#0b7d72] font-medium"
+              className="text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium"
             >
               View All
             </Link>

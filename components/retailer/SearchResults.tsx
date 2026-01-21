@@ -75,7 +75,7 @@ export default function SearchResults({ searchQuery, onSelect, onClose }: Search
             <h3 className="text-sm font-semibold text-gray-900">Recent Searches</h3>
             <button
               onClick={clearRecentSearches}
-              className="text-xs text-[#2F7F7A] hover:text-[#1e5d58] font-medium"
+              className="text-xs text-[#3A21C0] hover:text-[#7B6AD5] font-medium"
             >
               Clear
             </button>

@@ -126,7 +126,7 @@ export default function CartPage() {
           <div className="text-center">
             <button
               onClick={() => router.push('/retailer/dashboard')}
-              className="inline-flex items-center gap-2 bg-[#2F7F7A] text-white px-6 py-3 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium"
+              className="inline-flex items-center gap-2 bg-[#3A21C0] text-white px-6 py-3 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium"
             >
               Home
             </button>
@@ -150,7 +150,7 @@ export default function CartPage() {
             <p className="text-gray-600 mb-4">Your cart is empty</p>
             <Link
               href="/retailer/products"
-              className="inline-flex items-center gap-2 bg-[#2F7F7A] text-white px-6 py-3 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium"
+              className="inline-flex items-center gap-2 bg-[#3A21C0] text-white px-6 py-3 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium"
             >
               Browse Products
               <ArrowRight className="w-5 h-5" />
@@ -223,7 +223,7 @@ export default function CartPage() {
                   onClick={() => setSelectedDeliveryDate(dateStr)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isSelected
-                      ? 'bg-[#2F7F7A] text-white'
+                      ? 'bg-[#3A21C0] text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >

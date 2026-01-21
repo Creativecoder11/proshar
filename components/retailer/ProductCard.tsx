@@ -125,7 +125,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Quantity Selector or Add to Cart */}
           <div className="relative" ref={dropdownRef}>
             {showQuantitySelector ? (
-              <div className="border-2 border-[#2F7F7A] rounded-lg p-3 bg-white shadow-lg">
+              <div className="border-2 border-[#3A21C0] rounded-lg p-3 bg-white shadow-lg">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700">Select Quantity</span>
                   <button
@@ -146,7 +146,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                         name={`quantity-${product.id}`}
                         value={index}
                         onChange={() => handleQuantitySelect(option)}
-                        className="w-4 h-4 text-[#2F7F7A] focus:ring-[#2F7F7A]"
+                        className="w-4 h-4 text-[#3A21C0] focus:ring-[#3A21C0]"
                       />
                       <span className="text-sm text-gray-700">{option.label}</span>
                     </label>
@@ -157,7 +157,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               <button
                 onClick={handleAddToCart}
                 disabled={product.stock === 0}
-                className="w-full bg-[#2F7F7A] text-white py-2 px-4 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-[#3A21C0] text-white py-2 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <ShoppingCart className="w-4 h-4" />
                 Add to Cart

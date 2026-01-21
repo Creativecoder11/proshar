@@ -163,7 +163,7 @@ export default function WholesalerPage() {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2F7F7A]"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3A21C0]"></div>
         </div>
       </Layout>
     );
@@ -181,7 +181,7 @@ export default function WholesalerPage() {
           {viewMode === 'manage' && (
             <button
               onClick={() => setViewMode('add')}
-              className="flex items-center gap-2 bg-[#2F7F7A] text-white px-4 py-2 rounded-lg hover:bg-[#1e5d58] transition-colors"
+              className="flex items-center gap-2 bg-[#3A21C0] text-white px-4 py-2 rounded-lg hover:bg-[#7B6AD5] transition-colors"
             >
               <Users className="w-5 h-5" />
               Add Wholesaler
@@ -247,13 +247,13 @@ export default function WholesalerPage() {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 bg-[#ECF9F9] rounded-full flex items-center justify-center">
-                <Plus className="w-5 h-5 text-[#2F7F7A]" />
+                <Plus className="w-5 h-5 text-[#3A21C0]" />
               </div>
               <h2 className="text-lg font-semibold text-gray-900">Add New Wholesaler</h2>
             </div>
             <p className="text-gray-600 mb-6">Enter the unique code provided by your wholesaler.</p>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3">  
               <div className="flex-1 relative">
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
@@ -269,13 +269,13 @@ export default function WholesalerPage() {
                     }
                   }}
                   placeholder="Enter Wholesaler Code"
-                  className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent text-black"
+                  className="w-full pl-10 pr-4 py-3 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent text-black"
                 />
               </div>
               <button
                 onClick={handleAddWholesaler}
                 disabled={isAdding || !wholesalerCode.trim()}
-                className="flex items-center gap-2 bg-[#2F7F7A] text-white px-6 py-3 rounded-lg hover:bg-[#1e5d58] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 bg-[#3A21C0] text-white px-6 py-3 rounded-lg hover:bg-[#7B6AD5] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isAdding ? (
                   <>
@@ -299,7 +299,7 @@ export default function WholesalerPage() {
 
             {/* How to get a wholesaler code? */}
             <div className="mt-8">
-              <h3 className="text-sm font-semibold text-[#2F7F7A] mb-3">
+              <h3 className="text-sm font-semibold text-[#3A21C0] mb-3">
                 How to get a wholesaler code?
               </h3>
               <ul className="space-y-2">
@@ -310,7 +310,7 @@ export default function WholesalerPage() {
                   'Once verified, you can start ordering products',
                 ].map((step, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
-                    <ArrowRight className="w-4 h-4 text-[#2F7F7A] mt-0.5 flex-shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-[#3A21C0] mt-0.5 flex-shrink-0" />
                     <span>{step}</span>
                   </li>
                 ))}
@@ -336,7 +336,7 @@ export default function WholesalerPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search wholesalers..."
-                  className="w-full pl-10 pr-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2F7F7A] focus:border-transparent text-black"
+                  className="w-full pl-10 pr-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent text-black"
                 />
               </div>
               <div className="relative">

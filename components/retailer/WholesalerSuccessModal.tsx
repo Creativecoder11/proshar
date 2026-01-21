@@ -19,7 +19,7 @@ export default function WholesalerSuccessModal({
         {/* Success Icon */}
         <div className="flex justify-center mb-4">
           <div className="w-16 h-16 bg-[#ECF9F9] rounded-full flex items-center justify-center">
-            <Users className="w-8 h-8 text-[#2F7F7A]" />
+            <Users className="w-8 h-8 text-[#3A21C0]" />
           </div>
         </div>
 
@@ -37,14 +37,14 @@ export default function WholesalerSuccessModal({
         <div className="flex gap-3 mb-4">
           <button
             onClick={onManageWholesalers}
-            className="flex-1 flex items-center justify-center gap-2 bg-[#ECF9F9] text-[#2F7F7A] px-4 py-3 rounded-lg hover:bg-[#d4f4f4] transition-colors font-medium"
+            className="flex-1 flex items-center justify-center gap-2 bg-[#ECF9F9] text-[#3A21C0] px-4 py-3 rounded-lg hover:bg-[#d4f4f4] transition-colors font-medium"
           >
             <Users className="w-4 h-4" />
             Manage Wholesalers
           </button>
           <button
             onClick={onBackToHome}
-            className="flex-1 flex items-center justify-center gap-2 bg-[#2F7F7A] text-white px-4 py-3 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium"
+            className="flex-1 flex items-center justify-center gap-2 bg-[#3A21C0] text-white px-4 py-3 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium"
           >
             <Home className="w-4 h-4" />
             Back to Home

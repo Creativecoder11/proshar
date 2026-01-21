@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import prosharlogo from "@/assets/prosharlogo.svg";
+
 
 export default function NotFound() {
   return (
@@ -8,8 +11,7 @@ export default function NotFound() {
       {/* Logo */}
       <div className="mb-6">
         <div className="flex items-center justify-center gap-2">
-          <span className="text-4xl font-bold text-[#2F7F7A]">Medi</span>
-          <span className="text-4xl font-bold text-[#F97316]">Go</span>
+          <Image src={prosharlogo} alt="Proshar Logo" width={150} height={40} />
         </div>
       </div>
 
@@ -24,15 +26,10 @@ export default function NotFound() {
       {/* Action */}
       <Link
         href="/retailer/dashboard"
-        className="inline-flex items-center justify-center rounded-lg bg-[#2F7F7A] px-6 py-2.5 text-sm font-medium text-white hover:opacity-90 transition"
+        className="inline-flex items-center justify-center rounded-lg bg-[#3A21C0] px-6 py-2.5 text-sm font-medium text-white hover:opacity-90 transition"
       >
         Go back home
       </Link>
-
-      {/* Footer */}
-      <p className="absolute bottom-6 text-xs text-gray-400">
-        Version 2.1.4
-      </p>
     </div>
   );
 }

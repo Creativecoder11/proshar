@@ -109,7 +109,7 @@ export default function VerifyOTPPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-[#0D9488] flex-col items-center justify-center px-12 text-white">
+      <div className="hidden lg:flex lg:w-1/2 bg-[#3A21C0] flex-col items-center justify-center px-12 text-white">
         <div className="max-w-md">
           <div className="flex items-center justify-center mb-8">
             <div className="flex gap-2">
@@ -167,7 +167,7 @@ export default function VerifyOTPPage() {
                   onKeyDown={(e) => handleKeyDown(index, e)}
                   onPaste={index === 0 ? handlePaste : undefined}
                   disabled={isLoading}
-                  className="w-12 h-12 text-center text-lg text-black font-semibold border-2 border-gray-300 rounded-lg focus:border-[#0D9488] focus:ring-2 focus:ring-[#0D9488] focus:outline-none disabled:opacity-50"
+                  className="w-12 h-12 text-center text-lg text-black font-semibold border-2 border-gray-300 rounded-lg focus:border-[#3A21C0] focus:ring-2 focus:ring-[#3A21C0] focus:outline-none disabled:opacity-50"
                 />
               ))}
             </div>
@@ -185,7 +185,7 @@ export default function VerifyOTPPage() {
               type="button"
               onClick={() => handleVerify(otp.join(''))}
               disabled={otp.some((digit) => !digit) || isLoading}
-              className="w-full bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+              className="w-full bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed mb-4"
             >
               {isLoading ? 'Verifying...' : 'Continue'}
             </button>
@@ -196,7 +196,7 @@ export default function VerifyOTPPage() {
                 type="button"
                 onClick={() => router.push('/retailer/forgot-password')}
                 disabled={timeLeft > 0}
-                className="text-sm text-[#0D9488] hover:text-[#0b7d72] font-medium disabled:text-gray-400 disabled:cursor-not-allowed"
+                className="text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 Didn't receive the code?
               </button>
@@ -213,7 +213,7 @@ export default function VerifyOTPPage() {
             <div className="mt-6 text-center pt-4 border-t border-gray-200">
               <Link
                 href="/retailer/login"
-                className="text-sm text-[#0D9488] hover:text-[#0b7d72] font-medium"
+                className="text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium"
               >
                 Back to Sign In →
               </Link>

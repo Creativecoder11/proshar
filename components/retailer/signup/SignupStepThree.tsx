@@ -56,7 +56,7 @@ export default function SignupStepThree({ onNext, onBack }: SignupStepThreeProps
             id="shopName"
             value={formData.shopName || ''}
             onChange={(e) => setFormData({ shopName: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.shopName ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter shop name"
@@ -78,7 +78,7 @@ export default function SignupStepThree({ onNext, onBack }: SignupStepThreeProps
             id="city"
             value={formData.city || ''}
             onChange={(e) => setFormData({ city: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.city ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter city"
@@ -100,7 +100,7 @@ export default function SignupStepThree({ onNext, onBack }: SignupStepThreeProps
             id="policeStation"
             value={formData.policeStation || ''}
             onChange={(e) => setFormData({ policeStation: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.policeStation ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter police station"
@@ -122,7 +122,7 @@ export default function SignupStepThree({ onNext, onBack }: SignupStepThreeProps
             value={formData.address || ''}
             onChange={(e) => setFormData({ address: e.target.value })}
             rows={3}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.address ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter address"
@@ -143,7 +143,7 @@ export default function SignupStepThree({ onNext, onBack }: SignupStepThreeProps
         </button>
         <button
           type="submit"
-          className="flex-1 bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium"
+          className="flex-1 bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium"
         >
           Next
         </button>

@@ -21,6 +21,7 @@ import Image from "next/image";
 import { useCartStore } from "@/lib/stores/cart-store";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import SearchResults from "./SearchResults";
+import prosharlogo from '@/assets/prosharlogo.svg';
 
 export default function NavbarHeader() {
   const router = useRouter();
@@ -176,8 +177,7 @@ export default function NavbarHeader() {
         <div className="flex items-center justify-between gap-4">
           {/* LOGO */}
           <Link href="/retailer/dashboard" className="text-4xl font-bold">
-            <span className="text-[#2F7F7A]">Medi</span>
-            <span className="text-[#F97316]">Go</span>
+            <Image src={prosharlogo} alt="Medigo Logo" width={160} height={50} />
           </Link>
 
           <div className="flex items-center gap-4">
@@ -229,7 +229,7 @@ export default function NavbarHeader() {
                                     : [...prev, sub]
                                 );
                               }}
-                              className="accent-[#2F7F7A] text-black"
+                              className="accent-[#3A21C0] text-black"
                             />
                             {sub}
                           </label>
@@ -247,7 +247,7 @@ export default function NavbarHeader() {
                         <button
                           type="button"
                           onClick={() => setShowSubCategory(false)}
-                          className="text-xs bg-[#2F7F7A] text-white px-3 py-1 rounded"
+                          className="text-xs bg-[#3A21C0] text-white px-3 py-1 rounded"
                         >
                           Apply
                         </button>
@@ -263,7 +263,7 @@ export default function NavbarHeader() {
                   <button
                     type="button"
                     onClick={() => setShowCategory(!showCategory)}
-                    className="flex items-center gap-2 bg-[#2F7F7A] text-white text-sm px-4 h-[34px] rounded-lg"
+                    className="flex items-center gap-2 bg-[#3A21C0] text-white text-sm px-4 h-[34px] rounded-lg"
                   >
                     {category}
                     <ChevronDown className="w-4 h-4" />
@@ -413,14 +413,14 @@ export default function NavbarHeader() {
                       <div className="p-4 border-t border-gray-200">
                         <div className="flex items-center justify-between mb-4">
                           <span className="text-base font-semibold text-gray-900">Total:</span>
-                          <span className="text-lg font-bold text-[#2F7F7A]">
+                          <span className="text-lg font-bold text-[#3A21C0]">
                             ৳{cartTotal.toFixed(2)}
                           </span>
                         </div>
                         <Link
                           href="/retailer/cart"
                           onClick={() => setShowCart(false)}
-                          className="w-full bg-[#2F7F7A] text-white py-2.5 px-4 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium flex items-center justify-center gap-2"
+                          className="w-full bg-[#3A21C0] text-white py-2.5 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium flex items-center justify-center gap-2"
                         >
                           View Cart
                           <ArrowRight className="w-4 h-4" />
@@ -480,7 +480,7 @@ export default function NavbarHeader() {
                             <div className="flex items-start gap-3">
                               <div
                                 className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                                  !notification.read ? 'bg-[#2F7F7A]' : 'bg-transparent'
+                                  !notification.read ? 'bg-[#3A21C0]' : 'bg-transparent'
                                 }`}
                               />
                               <div className="flex-1 min-w-0">
@@ -501,7 +501,7 @@ export default function NavbarHeader() {
 
                   {notifications.length > 0 && (
                     <div className="p-3 border-t border-gray-200">
-                      <button className="w-full text-sm text-[#2F7F7A] hover:text-[#1e5d58] font-medium text-center">
+                      <button className="w-full text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium text-center">
                         View All Notifications
                       </button>
                     </div>

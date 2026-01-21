@@ -55,7 +55,7 @@ export default function SignupStepOne({ onNext }: SignupStepOneProps) {
             id="fullName"
             value={formData.fullName || ''}
             onChange={(e) => setFormData({ fullName: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.fullName ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter your full name"
@@ -77,7 +77,7 @@ export default function SignupStepOne({ onNext }: SignupStepOneProps) {
             id="phone"
             value={formData.phone || ''}
             onChange={(e) => setFormData({ phone: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.phone ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter phone number"
@@ -99,7 +99,7 @@ export default function SignupStepOne({ onNext }: SignupStepOneProps) {
             id="email"
             value={formData.email || ''}
             onChange={(e) => setFormData({ email: e.target.value })}
-            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
+            className={`w-full pl-10 pr-4 py-3 border text-black rounded-lg focus:ring-2 focus:ring-[#3A21C0] focus:border-transparent ${
               errors.email ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter your email address"
@@ -112,7 +112,7 @@ export default function SignupStepOne({ onNext }: SignupStepOneProps) {
 
       <button
         type="submit"
-        className="w-full bg-[#0D9488] text-white py-3 px-4 rounded-lg hover:bg-[#0b7d72] transition-colors font-medium mt-6"
+        className="w-full bg-[#3A21C0] text-white py-3 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium mt-6"
       >
         Next
       </button>

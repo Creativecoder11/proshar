@@ -159,7 +159,7 @@ export default function ProductDetailPage() {
     return (
       <Layout>
         <div className="flex items-center justify-center min-h-[400px]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#2F7F7A]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#3A21C0]" />
         </div>
       </Layout>
     );
@@ -171,7 +171,7 @@ export default function ProductDetailPage() {
         <div className="space-y-4">
           <Link
             href="/retailer/products"
-            className="inline-flex items-center gap-2 text-[#2F7F7A] hover:text-[#1e5d58]"
+            className="inline-flex items-center gap-2 text-[#3A21C0] hover:text-[#7B6AD5]"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to Products
@@ -190,7 +190,7 @@ export default function ProductDetailPage() {
         {/* Back Button */}
         <Link
           href="/retailer/products"
-          className="inline-flex items-center gap-2 text-[#2F7F7A] hover:text-[#1e5d58] font-medium"
+          className="inline-flex items-center gap-2 text-[#3A21C0] hover:text-[#7B6AD5] font-medium"
         >
           <ArrowLeft className="w-5 h-5" />
           Back to Products
@@ -292,7 +292,7 @@ export default function ProductDetailPage() {
               {/* Add to Cart Button */}
               <div className="relative">
                 {showQuantityModal ? (
-                  <div className="border-2 border-[#2F7F7A] rounded-lg p-4 bg-white shadow-lg">
+                  <div className="border-2 border-[#3A21C0] rounded-lg p-4 bg-white shadow-lg">
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="text-lg font-semibold text-gray-900">Select Quantity</h3>
                       <button
@@ -311,7 +311,7 @@ export default function ProductDetailPage() {
                           key={index}
                           className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer border-2 transition-colors ${
                             selectedQuantity?.boxes === option.boxes
-                              ? 'border-[#2F7F7A] bg-[#ECF9F9]'
+                              ? 'border-[#3A21C0] bg-[#ECF9F9]'
                               : 'border-gray-200 hover:border-gray-300'
                           }`}
                         >
@@ -320,7 +320,7 @@ export default function ProductDetailPage() {
                             name="quantity"
                             checked={selectedQuantity?.boxes === option.boxes}
                             onChange={() => handleQuantitySelect(option)}
-                            className="w-4 h-4 text-[#2F7F7A] focus:ring-[#2F7F7A]"
+                            className="w-4 h-4 text-[#3A21C0] focus:ring-[#3A21C0]"
                           />
                           <div className="flex-1">
                             <span className="text-sm font-medium text-gray-900">
@@ -338,7 +338,7 @@ export default function ProductDetailPage() {
                   <button
                     onClick={handleAddToCart}
                     disabled={product.stock === 0}
-                    className="w-full bg-[#2F7F7A] text-white py-3 px-6 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-[#3A21C0] text-white py-3 px-6 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     <ShoppingCart className="w-5 h-5" />
                     Add To Cart
@@ -356,7 +356,7 @@ export default function ProductDetailPage() {
               <h2 className="text-lg font-semibold text-gray-900">Alternative Brands</h2>
               <Link
                 href="/retailer/products"
-                className="text-sm text-[#2F7F7A] hover:text-[#1e5d58] font-medium"
+                className="text-sm text-[#3A21C0] hover:text-[#7B6AD5] font-medium"
               >
                 View All
               </Link>
@@ -409,7 +409,7 @@ export default function ProductDetailPage() {
                         addItem(altProduct, defaultOption.boxes, defaultOption);
                         setShowToast(true);
                       }}
-                      className="w-full bg-[#2F7F7A] text-white py-2 px-4 rounded-lg hover:bg-[#1e5d58] transition-colors font-medium text-sm flex items-center justify-center gap-2 mt-2"
+                      className="w-full bg-[#3A21C0] text-white py-2 px-4 rounded-lg hover:bg-[#7B6AD5] transition-colors font-medium text-sm flex items-center justify-center gap-2 mt-2"
                     >
                       <ShoppingCart className="w-4 h-4" />
                       Add to Cart
